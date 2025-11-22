@@ -19,6 +19,12 @@ router.get('/', function(req, res, next){
 
 router.post('/create', function (req, res, next) {
     const { task } = req.body;
+    
+    //validation for blank tasks
+    if (!task || task.trim() === '') {
+      return res.status(400).send('Task cannot be empty.');
+    }
+
     try {
       req.db.query('INSERT INTO todos (task) VALUES (?);', [task], (err, results) => {
         if (err) {
@@ -52,5 +58,43 @@ router.post('/delete', function (req, res, next) {
         res.status(500).send('Error deleting todo:');
     }
 });
+
+// update a task
+router.post('/edit', function (req, res, next) {
+    const { id, task } = req.body;
+    if (!task || task.trim() === '') {
+        return res.status(400).send('Task cannot be empty.');
+    }
+    try {
+        req.db.query('UPDATE todos SET task = ? WHERE id = ?;', [task, id], (err, results) => {
+            if (err) {
+                console.error('Error updating todo:', err);
+                return res.status(500).send('Error updating todo');
+            }
+            res.redirect('/');
+        });
+    } catch (error) {
+        console.error('Error updating todo:', error);
+        res.status(500).send('Error updating todo');
+    }
+});
+
+//mark as completed
+router.post('/complete', function (req, res, next) {
+    const { id } = req.body;
+    try {
+        req.db.query('UPDATE todos SET completed = TRUE WHERE id = ?;', [id], (err, results) => {
+            if (err) {
+                console.error('Error completing todo:', err);
+                return res.status(500).send('Error completing todo');
+            }
+            res.redirect('/');
+        });
+    } catch (error) {
+        console.error('Error completing todo:', error);
+        res.status(500).send('Error completing todo');
+    }
+});
+
 
 module.exports = router;

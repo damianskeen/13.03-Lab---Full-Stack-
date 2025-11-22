@@ -1,8 +1,58 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+  color: #333;
 }
 
-a {
-  color: #00B7FF;
+h1, h2 {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+li {
+  display: flex;          
+  align-items: center;       
+  justify-content: space-between; 
+  margin-bottom: 10px;
+  padding: 4px 0;
+}
+
+input[type="text"] {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.button-group {
+  display: flex;  
+  gap: 5px;       
+}
+
+button {
+  padding: 4px 8px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.completed-label {
+  color: green;
+  font-weight: bold;
+}
+
+form {
+  display: inline;
 }
